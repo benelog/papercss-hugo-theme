@@ -8,8 +8,9 @@
     <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h2>
   {{ with .Params.tags }}
+    &ensp;&ensp;
     {{ range . }}
-      <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+      <a href="{{ "tags/" | absURL }}{{ . | urlize }}">#{{ . }}</a>
     {{ end }}
   {{ end }}
   <br>
