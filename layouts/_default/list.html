@@ -4,13 +4,14 @@
 {{ .Content }}
 {{ $pages := .Pages }}
 {{ range $pages.ByPublishDate.Reverse }}
-  <h2 class="post-list {{ if ne .Params.show_summary false }}summary{{ end }}">
-    <a href="{{ .Permalink }}">
-      {{ .Title }}
-    </a>
+  <h2 class="post-list" style="display: inline;">
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h2>
-  {{ if ne .Params.show_summary false }}
-    {{ .Summary }}
+  {{ with .Params.tags }}
+    {{ range . }}
+      <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+    {{ end }}
   {{ end }}
+  <br>
 {{ end }}
 {{ end }}
