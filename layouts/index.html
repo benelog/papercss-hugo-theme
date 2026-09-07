@@ -1,18 +1,4 @@
 {{ define "main" }}
-
-<h1>{{ .Title }}</h1>
-{{ .Content }}
 {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{ range $pages.ByPublishDate.Reverse }}
-  <h2 class="post-list" style="display: inline;">
-    <a href="{{ .Permalink }}">{{ .Title }}</a>
-  </h2>
-  {{ with .Params.tags }}
-    &ensp;&ensp;
-    {{ range . }}
-      <a href="{{ "tags/" | absURL }}{{ . | urlize }}">#{{ . }}</a>
-    {{ end }}
-  {{ end }}
-  <br>
-{{ end }}
+{{ partial "ledger.html" (dict "title" .Title "content" .Content "pages" $pages) }}
 {{ end }}

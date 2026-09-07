@@ -1,0 +1,6 @@
+[toc]
+other = "Contents"
+
+[bookCount]
+one = "{{ .Count }} book"
+other = "{{ .Count }} books"

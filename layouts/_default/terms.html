@@ -1,11 +1,14 @@
 {{ define "main" }}
 
-<h1>{{ .Title }}</h1>
-{{ range .Data.Terms.Alphabetical }}
-  <h2 class="post-list">
-    <span class="badge">{{ .Count }}</span> 
-    <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
-  </h2>
+<header class="ledger-head">
+  <h1>{{ .Title }}</h1>
+  <span class="ledger-count">{{ len .Data.Terms }}</span>
+</header>
+{{ .Content }}
+<ul class="tag-cloud">
+{{ range .Data.Terms.ByCount }}
+  <li><a href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}<span class="tag-count">{{ .Count }}</span></a></li>
 {{ end }}
+</ul>
 
 {{ end }}

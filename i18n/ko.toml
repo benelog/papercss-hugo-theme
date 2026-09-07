@@ -1,0 +1,6 @@
+[toc]
+other = "목차"
+
+[bookCount]
+one = "{{ .Count }}권"
+other = "{{ .Count }}권"

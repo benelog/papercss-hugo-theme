@@ -1,22 +1,28 @@
 {{ define "main" }}
 
-<h1 class="post-title">{{ .Title }}</h1>
+<article class="post">
+  <header class="post-head">
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{ $dateFormat := site.Params.dateFormat | default "Jan 2, 2006" }}
+    <p class="post-meta">
+      <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format $dateFormat }}</time>
+      {{ with .Params.tags }}
+      <span class="post-tags">
+        {{ range . }}<a href="{{ "tags/" | absURL }}{{ . | urlize }}">#{{ . }}</a> {{ end }}
+      </span>
+      {{ end }}
+    </p>
+  </header>
 
-{{ $dateFormat := $.Site.Params.dateFormat | default "Jan 2, 2006" }}
-<strong>Publish date: </strong>{{ .PublishDate.Format $dateFormat }}
-<br>
-{{ with .Params.tags }}
-  <strong>Tags: </strong>
-  {{ range . }}
-    <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+  {{ if ne .Params.toc false }}
+    {{ partial "toc.html" . }}
   {{ end }}
-{{ end }}
 
-{{ if ne .Params.toc false }}
-  {{ partial "toc.html" . }}
-{{ end }}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+</article>
 
-{{ .Content }}
 {{ template "_internal/disqus.html" . }}
 
 {{ end }}

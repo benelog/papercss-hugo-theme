@@ -1,0 +1,26 @@
+{{/* 연도별로 묶은 독서 기록 목록. .title 과 .pages 를 받는다. */}}
+{{ $pages := .pages }}
+{{ $dateFormat := site.Params.listDateFormat | default "01.02" }}
+<header class="ledger-head">
+  <h1>{{ .title }}</h1>
+  <span class="ledger-count">{{ i18n "bookCount" (dict "Count" (len $pages)) }}</span>
+</header>
+{{ .content }}
+<div class="ledger">
+{{ range $pages.GroupByPublishDate "2006" }}
+  <h2 class="ledger-year">{{ .Key }}</h2>
+  <ul class="ledger-rows">
+  {{ range .Pages }}
+    <li class="ledger-row">
+      <time class="ledger-date" datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format $dateFormat }}</time>
+      <a class="ledger-title" href="{{ .Permalink }}">{{ .Title }}</a>
+      {{ with .Params.tags }}
+      <span class="ledger-tags">
+        {{ range . }}<a href="{{ "tags/" | absURL }}{{ . | urlize }}">#{{ . }}</a> {{ end }}
+      </span>
+      {{ end }}
+    </li>
+  {{ end }}
+  </ul>
+{{ end }}
+</div>
