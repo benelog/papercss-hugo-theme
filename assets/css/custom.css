@@ -293,13 +293,46 @@ blockquote {
   text-decoration: underline;
 }
 
-.post-content > p:first-child > img {
-  max-width: 190px;
-  float: right;
-  margin: 0 0 1rem 1.5rem;
-}
+/* 표지: 책등과 종이 두께가 보이는 입체 책 */
 .post-content > p:first-child:has(> img) {
-  margin: 0;
+  float: right;
+  position: relative;
+  margin: .4rem 0 1.4rem 2rem;
+  transform: perspective(900px) rotateY(-14deg);
+  transform-origin: left center;
+}
+.post-content > p:first-child > img {
+  display: block;
+  max-width: 190px;
+  border: 0;
+  border-radius: 2px 5px 5px 2px;
+  box-shadow:
+    -1px 0 0 rgba(0, 0, 0, .12),
+    2px 2px 0 #f4f2ec,
+    3px 3px 0 #cfcdc7,
+    4px 4px 0 #f4f2ec,
+    5px 5px 0 #cfcdc7,
+    6px 6px 0 #f4f2ec,
+    7px 7px 0 #cfcdc7,
+    8px 8px 0 #f4f2ec,
+    9px 9px 0 #cfcdc7,
+    16px 16px 26px -6px rgba(0, 0, 0, .35);
+}
+.post-content > p:first-child:has(> img)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 2px 5px 5px 2px;
+  background:
+    linear-gradient(90deg,
+      rgba(0, 0, 0, .28) 0,
+      rgba(255, 255, 255, .28) 3%,
+      rgba(0, 0, 0, .12) 6%,
+      rgba(0, 0, 0, 0) 13%),
+    linear-gradient(115deg,
+      rgba(255, 255, 255, 0) 55%,
+      rgba(255, 255, 255, .10) 100%);
+  pointer-events: none;
 }
 /* 표지 바로 아래의 이미지 출처 표기 */
 .post-content > p:first-child:has(> img) + p {
@@ -358,9 +391,12 @@ blockquote {
     max-width: none;
     font-size: .9rem;
   }
-  .post-content > p:first-child > img {
+  .post-content > p:first-child:has(> img) {
     float: none;
+    width: fit-content;
+    margin: .4rem 0 1.2rem .3rem;
+  }
+  .post-content > p:first-child > img {
     max-width: 150px;
-    margin: 0 0 .5rem;
   }
 }
