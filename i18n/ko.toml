@@ -77,7 +77,3 @@ other = "맨 위로"
 [tagCount]
 one = "{{ .Count }}개"
 other = "{{ .Count }}개"
-
-[tocCount]
-one = "{{ .Count }}개 항목"
-other = "{{ .Count }}개 항목"

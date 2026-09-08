@@ -77,7 +77,3 @@ other = "Back to top"
 [tagCount]
 one = "{{ .Count }} tag"
 other = "{{ .Count }} tags"
-
-[tocCount]
-one = "{{ .Count }} heading"
-other = "{{ .Count }} headings"

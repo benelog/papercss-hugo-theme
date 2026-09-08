@@ -1,8 +1,8 @@
-{{ $toc := .Fragments.ToHTML 2 3 false }}
+{{ $toc := .Fragments.ToHTML 2 2 false }}
 {{ $count := len (findRE "<a " $toc) }}
 {{ if ge $count 2 }}
-<details class="toc"{{ if le $count 6 }} open{{ end }}>
-  <summary>{{ i18n "toc" }} <span class="toc-count">{{ i18n "tocCount" (dict "Count" $count) }}</span></summary>
+<div class="toc">
+  <span class="toc-label">{{ i18n "toc" }}</span>
   {{ $toc | replaceRE `<nav id="TableOfContents">` (printf `<nav id="TableOfContents" aria-label="%s">` (i18n "toc")) | safeHTML }}
-</details>
+</div>
 {{ end }}
