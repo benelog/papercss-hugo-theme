@@ -6,9 +6,9 @@
     {{ $dateFormat := site.Params.dateFormat | default "Jan 2, 2006" }}
     <p class="post-meta">
       <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format $dateFormat }}</time>
-      {{ with .Params.tags }}
+      {{ with .GetTerms "tags" }}
       <span class="post-tags">
-        {{ range . }}<a href="{{ "tags/" | absURL }}{{ . | urlize }}">#{{ . }}</a> {{ end }}
+        {{ range . }}<a href="{{ .RelPermalink }}">#{{ partial "tag-label.html" .Data.Term }}</a>{{ end }}
       </span>
       {{ end }}
     </p>
@@ -19,9 +19,14 @@
   {{ end }}
 
   <div class="post-content">
-    {{ .Content }}
+    {{ partial "book-content.html" . }}
   </div>
 </article>
+
+<div class="post-navigation">
+  <a href="{{ .Site.Home.RelPermalink }}">← {{ i18n "backToBooks" }}</a>
+  <a href="#main">{{ i18n "backToTop" }} ↑</a>
+</div>
 
 {{ template "_internal/disqus.html" . }}
 

@@ -1,15 +1,8 @@
-{{ $headings := findRE "<h2.*?>(.|\n])+?</h2>" .Content }}
-{{ if ge (len $headings) 2 }}
-<nav class="toc" aria-label="{{ i18n "toc" }}">
-  <span class="toc-label">{{ i18n "toc" }}</span>
-  <ol>
-    {{ range $headings }}
-      {{ $id := findRE "id=\".*\"" . }}
-      {{ $id = index $id 0 }}
-      {{ $id = strings.TrimPrefix "id=\"" $id }}
-      {{ $id = strings.TrimSuffix "\"" $id }}
-      <li><a href="#{{ $id }}">{{ . | htmlUnescape | plainify }}</a></li>
-    {{ end }}
-  </ol>
-</nav>
+{{ $toc := .Fragments.ToHTML 2 3 false }}
+{{ $count := len (findRE "<a " $toc) }}
+{{ if ge $count 2 }}
+<details class="toc"{{ if le $count 6 }} open{{ end }}>
+  <summary>{{ i18n "toc" }} <span class="toc-count">{{ i18n "tocCount" (dict "Count" $count) }}</span></summary>
+  {{ $toc | replaceRE `<nav id="TableOfContents">` (printf `<nav id="TableOfContents" aria-label="%s">` (i18n "toc")) | safeHTML }}
+</details>
 {{ end }}

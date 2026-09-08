@@ -1,0 +1,6 @@
+{{- $names := dict "ai" "AI" "api" "API" "ddd" "DDD" "http" "HTTP" "it" "IT" "java" "Java" "javascript" "JavaScript" "jvm" "JVM" "nosql" "NoSQL" "osgi" "OSGi" "sf" "SF" "sql" "SQL" "tdd" "TDD" "ui" "UI" "ux" "UX" -}}
+{{- $parts := slice -}}
+{{- range split . "-" -}}
+  {{- $parts = $parts | append (index $names (lower .) | default .) -}}
+{{- end -}}
+{{- return (delimit $parts "-") -}}

@@ -4,3 +4,80 @@ other = "목차"
 [bookCount]
 one = "{{ .Count }}권"
 other = "{{ .Count }}권"
+
+[mainNavigation]
+other = "주 메뉴"
+
+[toggleMenu]
+other = "메뉴 열기/닫기"
+
+[skipToContent]
+other = "본문 바로가기"
+
+[tags]
+other = "태그"
+
+[searchBooks]
+other = "책 검색"
+
+[searchBooksHint]
+other = "책 제목이나 태그를 입력하세요"
+
+[jumpYear]
+other = "연도 바로가기"
+
+[chooseYear]
+other = "연도 선택"
+
+[clearSearch]
+other = "검색 지우기"
+
+[bookResults]
+other = "전체 {total}권 중 {count}권"
+
+[noBooks]
+other = "검색 결과가 없습니다. 다른 제목이나 태그로 검색해 보세요."
+
+[searchTags]
+other = "태그 검색"
+
+[searchTagsHint]
+other = "태그 이름을 입력하세요"
+
+[sortTags]
+other = "정렬"
+
+[sortByCount]
+other = "많은 순"
+
+[sortByName]
+other = "이름순"
+
+[noTags]
+other = "검색 결과가 없습니다. 다른 태그 이름으로 검색해 보세요."
+
+[tagResults]
+other = "전체 {total}개 중 {count}개"
+
+[bookInfo]
+other = "책 정보"
+
+[aladin]
+other = "알라딘"
+
+[kyobo]
+other = "교보문고"
+
+[backToBooks]
+other = "책 목록"
+
+[backToTop]
+other = "맨 위로"
+
+[tagCount]
+one = "{{ .Count }}개"
+other = "{{ .Count }}개"
+
+[tocCount]
+one = "{{ .Count }}개 항목"
+other = "{{ .Count }}개 항목"

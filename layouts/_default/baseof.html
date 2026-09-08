@@ -2,9 +2,10 @@
 <html lang="{{ .Site.Language.Lang }}">
   {{ partial "head.html" . }}
   <body>
+    <a class="skip-link" href="#main">{{ i18n "skipToContent" }}</a>
     <div class="container paper">
       {{ partial "nav.html" . }}
-      <main>
+      <main id="main" tabindex="-1">
         {{ block "main" . }}{{ end }}
       </main>
       {{ partial "google-analytics-async.html" . }}

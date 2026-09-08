@@ -1,22 +1,14 @@
-<nav class="border split-nav">
-  <div class="nav-brand">
-    <h3><a href="/">{{ .Site.Title }}</a></h3>
-  </div>
-  <div class="collapsible">
-    <input id="collapsible1" type="checkbox" name="collapsible1">
-    <button>
-    <label for="collapsible1">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-      </label>
-    </button>
-    <div class="collapsible-body">
-      <ul class="inline">
-      {{ range .Site.Menus.nav }}
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-      {{ end }}
-      </ul>
-    </div>
-  </div>
+{{ $page := . }}
+<nav class="border site-nav" aria-label="{{ i18n "mainNavigation" }}">
+  <a class="nav-brand" href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a>
+  <button class="nav-toggle" type="button" aria-label="{{ i18n "toggleMenu" }}" aria-controls="site-menu" aria-expanded="false" hidden>
+    <span aria-hidden="true">☰</span>
+  </button>
+  <ul class="nav-links" id="site-menu">
+    {{ range .Site.Menus.nav }}
+    {{ $name := .Name }}
+    {{ if eq (lower $name) "tags" }}{{ $name = i18n "tags" }}{{ end }}
+    <li><a href="{{ .URL }}"{{ if or ($page.IsMenuCurrent "nav" .) (eq .URL $page.RelPermalink) }} aria-current="page"{{ end }}>{{ $name }}</a></li>
+    {{ end }}
+  </ul>
 </nav>

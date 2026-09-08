@@ -1,26 +1,44 @@
-{{/* 연도별로 묶은 독서 기록 목록. .title 과 .pages 를 받는다. */}}
 {{ $pages := .pages }}
+{{ $groups := $pages.GroupByPublishDate "2006" }}
 {{ $dateFormat := site.Params.listDateFormat | default "01.02" }}
 <header class="ledger-head">
   <h1>{{ .title }}</h1>
   <span class="ledger-count">{{ i18n "bookCount" (dict "Count" (len $pages)) }}</span>
 </header>
 {{ .content }}
-<div class="ledger">
-{{ range $pages.GroupByPublishDate "2006" }}
-  <h2 class="ledger-year">{{ .Key }}</h2>
+<form class="browse-tools" role="search" aria-label="{{ i18n "searchBooks" }}" data-book-search hidden>
+  <div class="search-field">
+    <label for="book-query">{{ i18n "searchBooks" }}</label>
+    <input id="book-query" name="q" type="search" placeholder="{{ i18n "searchBooksHint" }}" aria-controls="book-ledger" autocomplete="off">
+  </div>
+  <div class="select-field">
+    <label for="book-year">{{ i18n "jumpYear" }}</label>
+    <select id="book-year" aria-controls="book-ledger">
+      <option value="">{{ i18n "chooseYear" }}</option>
+      {{ range $groups }}<option value="year-{{ .Key }}">{{ .Key }}</option>{{ end }}
+    </select>
+  </div>
+  <button class="clear-search" type="button" hidden>{{ i18n "clearSearch" }}</button>
+  <p class="search-status" role="status" aria-live="polite" aria-atomic="true" data-format="{{ i18n "bookResults" }}"></p>
+</form>
+<p class="empty-results" data-empty-results hidden>{{ i18n "noBooks" }}</p>
+<div class="ledger" id="book-ledger">
+{{ range $groups }}
+  <section class="ledger-group" aria-labelledby="year-{{ .Key }}">
+  <h2 class="ledger-year" id="year-{{ .Key }}" tabindex="-1"><a href="#year-{{ .Key }}">{{ .Key }}</a></h2>
   <ul class="ledger-rows">
   {{ range .Pages }}
-    <li class="ledger-row">
+    <li class="ledger-row" data-search="{{ .Title }} {{ delimit (.Params.tags | default slice) " " }}">
       <time class="ledger-date" datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format $dateFormat }}</time>
-      <a class="ledger-title" href="{{ .Permalink }}">{{ .Title }}</a>
-      {{ with .Params.tags }}
+      <a class="ledger-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ with .GetTerms "tags" }}
       <span class="ledger-tags">
-        {{ range . }}<a href="{{ "tags/" | absURL }}{{ . | urlize }}">#{{ . }}</a> {{ end }}
+        {{ range . }}<a href="{{ .RelPermalink }}">#{{ partial "tag-label.html" .Data.Term }}</a>{{ end }}
       </span>
       {{ end }}
     </li>
   {{ end }}
   </ul>
+  </section>
 {{ end }}
 </div>

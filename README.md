@@ -26,7 +26,7 @@ https://papercss-hugo-theme.netlify.com/
 
 ## Minimum Hugo version
 
-Hugo version `0.60.1` or higher is required. View the [Hugo releases](https://github.com/gohugoio/hugo/releases) and download the binary for your OS.
+Hugo version `0.148.2` or higher is required. View the [Hugo releases](https://github.com/gohugoio/hugo/releases) and download the binary for your OS.
 
 ## Installation
 
@@ -56,6 +56,14 @@ hugo server --themesDir ../..
 
 Copy `config.yaml` from the [`exampleSite`](https://github.com/zwbetz-gh/papercss-hugo-theme/tree/master/exampleSite), then edit as desired. 
 
+## Reading journal UI
+
+The year-grouped book list supports title/tag search and year links. The tag index supports search and sorting by count or name. Search and sort state are kept in the URL, so links can be shared and restored after opening a book. With JavaScript disabled, all entries and navigation links remain available.
+
+A standalone image at the start of a post is displayed as a book cover. A following standalone bookstore link is moved into a `figcaption`; YES24, Aladin and Kyobo links receive short labels. Introductory prose stays at the normal body size. H2/H3 headings appear in the collapsible table of contents.
+
+UI strings are provided in Korean and English in `i18n/`. Common tag acronyms are formatted for display without changing their URLs.
+
 ## Favicons
 
 Upload your image to [RealFaviconGenerator](https://realfavicongenerator.net/) then copy-paste the generated favicon files under `static`. 
@@ -66,7 +74,7 @@ See the [full list of supported shortcodes](https://papercss-hugo-theme.netlify.
 
 ## Disable toc for a blog post
 
-Blog posts that have two or more subheadings (`<h2>`s) automatically get a table of contents. To disable this set `toc` to `false`. For example:
+Blog posts with two or more H2/H3 headings automatically get a nested table of contents. More than six entries are collapsed by default; the native disclosure works without JavaScript. To disable this set `toc` to `false`. For example:
 
 ```
 ---

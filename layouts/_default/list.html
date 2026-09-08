@@ -1,3 +1,5 @@
 {{ define "main" }}
-{{ partial "ledger.html" (dict "title" .Title "content" .Content "pages" .Pages) }}
+{{ $title := .Title }}
+{{ if and (eq .Kind "term") (eq .Data.Plural "tags") }}{{ $title = printf "#%s" (partial "tag-label.html" .Data.Term) }}{{ end }}
+{{ partial "ledger.html" (dict "title" $title "content" .Content "pages" .Pages) }}
 {{ end }}

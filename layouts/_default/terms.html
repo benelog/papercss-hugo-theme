@@ -1,14 +1,31 @@
 {{ define "main" }}
-
+{{ $isTags := eq .Data.Plural "tags" }}
 <header class="ledger-head">
-  <h1>{{ .Title }}</h1>
-  <span class="ledger-count">{{ len .Data.Terms }}</span>
+  <h1>{{ if $isTags }}{{ i18n "tags" }}{{ else }}{{ .Title }}{{ end }}</h1>
+  <span class="ledger-count">{{ i18n "tagCount" (dict "Count" (len .Data.Terms)) }}</span>
 </header>
 {{ .Content }}
-<ul class="tag-cloud">
+<form class="browse-tools" role="search" aria-label="{{ i18n "searchTags" }}" data-tag-search hidden>
+  <div class="search-field">
+    <label for="tag-query">{{ i18n "searchTags" }}</label>
+    <input id="tag-query" name="q" type="search" placeholder="{{ i18n "searchTagsHint" }}" aria-controls="tag-list" autocomplete="off">
+  </div>
+  <div class="select-field">
+    <label for="tag-sort">{{ i18n "sortTags" }}</label>
+    <select id="tag-sort" name="sort" aria-controls="tag-list">
+      <option value="count">{{ i18n "sortByCount" }}</option>
+      <option value="name">{{ i18n "sortByName" }}</option>
+    </select>
+  </div>
+  <button class="clear-search" type="button" hidden>{{ i18n "clearSearch" }}</button>
+  <p class="search-status" role="status" aria-live="polite" aria-atomic="true" data-format="{{ i18n "tagResults" }}"></p>
+</form>
+<p class="empty-results" data-empty-results hidden>{{ i18n "noTags" }}</p>
+<ul class="tag-cloud" id="tag-list">
 {{ range .Data.Terms.ByCount }}
-  <li><a href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}<span class="tag-count">{{ .Count }}</span></a></li>
+  {{ $label := .Page.Data.Term }}
+  {{ if $isTags }}{{ $label = partial "tag-label.html" $label }}{{ end }}
+  <li data-name="{{ $label }}" data-count="{{ .Count }}"><a href="{{ .Page.RelPermalink }}">#{{ $label }}<span class="tag-count">{{ .Count }}</span></a></li>
 {{ end }}
 </ul>
-
 {{ end }}

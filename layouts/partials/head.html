@@ -33,7 +33,16 @@
   {{ $customCss:= resources.Get $customCssPath | resources.ExecuteAsTemplate $customCssPath . }}
   <link rel="stylesheet" type="text/css" href="{{ $customCss.Permalink }}">
 
-  {{ $title := print .Title " | " .Site.Title }}
+  {{ $browseScript := resources.Get "js/browse.js" | minify | fingerprint }}
+  <script src="{{ $browseScript.RelPermalink }}" integrity="{{ $browseScript.Data.Integrity }}" defer></script>
+
+  {{ $pageTitle := .Title }}
+  {{ if and (eq .Kind "taxonomy") (eq .Data.Plural "tags") }}
+    {{ $pageTitle = i18n "tags" }}
+  {{ else if and (eq .Kind "term") (eq .Data.Plural "tags") }}
+    {{ $pageTitle = printf "#%s" (partial "tag-label.html" .Data.Term) }}
+  {{ end }}
+  {{ $title := print $pageTitle " | " .Site.Title }}
   {{ if .IsHome }}
     {{ $title = .Site.Title }}
   {{ end }}

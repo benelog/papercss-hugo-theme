@@ -4,3 +4,80 @@ other = "Contents"
 [bookCount]
 one = "{{ .Count }} book"
 other = "{{ .Count }} books"
+
+[mainNavigation]
+other = "Main navigation"
+
+[toggleMenu]
+other = "Toggle menu"
+
+[skipToContent]
+other = "Skip to content"
+
+[tags]
+other = "Tags"
+
+[searchBooks]
+other = "Search books"
+
+[searchBooksHint]
+other = "Book title or tag"
+
+[jumpYear]
+other = "Jump to year"
+
+[chooseYear]
+other = "Choose a year"
+
+[clearSearch]
+other = "Clear search"
+
+[bookResults]
+other = "{count} of {total} books"
+
+[noBooks]
+other = "No books found. Try another title or tag."
+
+[searchTags]
+other = "Search tags"
+
+[searchTagsHint]
+other = "Tag name"
+
+[sortTags]
+other = "Sort"
+
+[sortByCount]
+other = "Most used"
+
+[sortByName]
+other = "Name"
+
+[noTags]
+other = "No tags found. Try another name."
+
+[tagResults]
+other = "{count} of {total} tags"
+
+[bookInfo]
+other = "Book details"
+
+[aladin]
+other = "Aladin"
+
+[kyobo]
+other = "Kyobo"
+
+[backToBooks]
+other = "Book list"
+
+[backToTop]
+other = "Back to top"
+
+[tagCount]
+one = "{{ .Count }} tag"
+other = "{{ .Count }} tags"
+
+[tocCount]
+one = "{{ .Count }} heading"
+other = "{{ .Count }} headings"

@@ -1,0 +1,33 @@
+{{/* Only a leading standalone image is a cover. Never style the next prose paragraph as a caption. */}}
+{{- $content := .Content -}}
+{{- $cover := findRE `^\s*<p>\s*<img\b[^>]*>\s*</p>` $content 1 -}}
+{{- with $cover -}}
+  {{- $first := index . 0 -}}
+  {{- $image := $first | replaceRE `^\s*<p>\s*|\s*</p>$` "" -}}
+  {{- $image = replace $image `alt=""` (printf `alt="%s"` ($.Title | htmlEscape)) -}}
+  {{- $rest := strings.TrimPrefix $first $content -}}
+  {{- $caption := "" -}}
+  {{- $source := findRE `^\s*<p>\s*\(?\s*(?:(?:이미지|표지)\s*)?(?:출처\s*:?\s*)?<a\s+[^>]*href="https?://[^"]+"[^>]*>[^<]*</a>\s*\)?\s*</p>` $rest 1 -}}
+  {{- with $source -}}
+    {{- $paragraph := index . 0 -}}
+    {{- $link := index (findRE `<a\s+[^>]*>[^<]*</a>` $paragraph 1) 0 -}}
+    {{- $url := $link | replaceRE `^<a\s+[^>]*href="([^"]+)"[^>]*>.*</a>$` "$1" | htmlUnescape -}}
+    {{- $host := (urls.Parse $url).Hostname -}}
+    {{- $store := "" -}}
+    {{- if or (eq $host "yes24.com") (strings.HasSuffix $host ".yes24.com") -}}{{- $store = "YES24" -}}
+    {{- else if or (eq $host "aladin.co.kr") (strings.HasSuffix $host ".aladin.co.kr") -}}{{- $store = i18n "aladin" -}}
+    {{- else if or (eq $host "kyobobook.co.kr") (strings.HasSuffix $host ".kyobobook.co.kr") -}}{{- $store = i18n "kyobo" -}}
+    {{- end -}}
+    {{- with $store -}}
+      {{- $label := printf "%s · %s" (i18n "bookInfo") . -}}
+      {{- $link = $link | replaceRE `>[^<]*</a>$` (printf ">%s</a>" ($label | htmlEscape)) -}}
+    {{- end -}}
+    {{/* An unrelated standalone link is still article content. */}}
+    {{- if or $store (findRE `출처|(?i:source|credit)` ($paragraph | plainify)) -}}
+      {{- $caption = printf "<figcaption>%s</figcaption>" $link -}}
+      {{- $rest = strings.TrimPrefix $paragraph $rest -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $content = printf `<figure class="book-cover"><div class="book-cover-image">%s</div>%s</figure>%s` $image $caption $rest -}}
+{{- end -}}
+{{- $content | safeHTML -}}
