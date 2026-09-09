@@ -1,4 +1,4 @@
-{{- $names := dict "ai" "AI" "api" "API" "c" "C" "clojure" "Clojure" "db" "DB" "ddd" "DDD" "docker" "Docker" "ebs" "EBS" "english" "English" "erlang" "Erlang" "git" "Git" "http" "HTTP" "it" "IT" "java" "Java" "javascript" "JavaScript" "jvm" "JVM" "kotlin" "Kotlin" "naver" "NAVER" "nosql" "NoSQL" "osgi" "OSGi" "python" "Python" "r" "R" "scala" "Scala" "sf" "SF" "spring" "Spring" "sql" "SQL" "tdd" "TDD" "ui" "UI" "ux" "UX" "vim" "Vim" -}}
+{{- $names := dict "ai" "AI" "api" "API" "c" "C" "clojure" "Clojure" "db" "DB" "ddd" "DDD" "docker" "Docker" "ebs" "EBS" "english" "English" "erlang" "Erlang" "first" "First" "git" "Git" "head" "Head" "http" "HTTP" "it" "IT" "java" "Java" "javascript" "JavaScript" "jvm" "JVM" "kotlin" "Kotlin" "naver" "NAVER" "nosql" "NoSQL" "osgi" "OSGi" "python" "Python" "r" "R" "scala" "Scala" "sf" "SF" "spring" "Spring" "sql" "SQL" "tdd" "TDD" "ui" "UI" "ux" "UX" "vim" "Vim" -}}
 {{- $parts := slice -}}
 {{- range split . "-" -}}
   {{- $parts = $parts | append (index $names (lower .) | default .) -}}
