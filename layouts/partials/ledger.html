@@ -2,7 +2,7 @@
 {{ $groups := $pages.GroupByPublishDate "2006" }}
 {{ $dateFormat := site.Params.listDateFormat | default "01.02" }}
 <header class="ledger-head">
-  <h1>{{ .title }}</h1>
+  {{ with .title }}<h1>{{ . }}</h1>{{ end }}
   <span class="ledger-count">{{ i18n "bookCount" (dict "Count" (len $pages)) }}</span>
 </header>
 {{ .content }}

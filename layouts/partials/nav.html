@@ -1,6 +1,10 @@
 {{ $page := . }}
 <nav class="border site-nav" aria-label="{{ i18n "mainNavigation" }}">
+  {{ if .IsHome }}
+  <h1 class="nav-brand">{{ .Site.Title }}</h1>
+  {{ else }}
   <a class="nav-brand" href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a>
+  {{ end }}
   <button class="nav-toggle" type="button" aria-label="{{ i18n "toggleMenu" }}" aria-controls="site-menu" aria-expanded="false" hidden>
     <span aria-hidden="true">☰</span>
   </button>

@@ -1,6 +1,5 @@
 {{ define "main" }}
 {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{/* nav 에 이미 사이트 제목이 있으므로 홈의 큰 제목은 params.homeTitle 로 따로 둔다 */}}
-{{ $title := site.Params.homeTitle | default .Title }}
-{{ partial "ledger.html" (dict "title" $title "content" .Content "pages" $pages) }}
+{{/* 홈에서는 nav 의 사이트 제목이 곧 h1 이므로 목록에는 제목을 넘기지 않는다 */}}
+{{ partial "ledger.html" (dict "title" "" "content" .Content "pages" $pages) }}
 {{ end }}

@@ -2,8 +2,8 @@
 other = "Contents"
 
 [bookCount]
-one = "{{ .Count }} book"
-other = "{{ .Count }} books"
+one = "{{ .Count }} reading note"
+other = "{{ .Count }} reading notes"
 
 [mainNavigation]
 other = "Main navigation"
@@ -33,7 +33,7 @@ other = "Choose a year"
 other = "Clear search"
 
 [bookResults]
-other = "{count} of {total} books"
+other = "{count} of {total} reading notes"
 
 [noBooks]
 other = "No books found. Try another title or tag."

@@ -108,6 +108,10 @@ a:hover {
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.25;
+  font-family: var(--font-hand);
+}
+.site-nav h1.nav-brand {
+  margin: 0;
 }
 .site-nav .nav-links {
   display: flex;
