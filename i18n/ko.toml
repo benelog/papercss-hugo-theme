@@ -2,8 +2,8 @@
 other = "목차"
 
 [bookCount]
-one = "{{ .Count }}개의 독서 기록"
-other = "{{ .Count }}개의 독서 기록"
+one = "{{ .Count }}개의 기록"
+other = "{{ .Count }}개의 기록"
 
 [mainNavigation]
 other = "주 메뉴"
