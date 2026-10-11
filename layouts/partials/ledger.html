@@ -22,13 +22,20 @@
   <p class="search-status" role="status" aria-live="polite" aria-atomic="true" data-format="{{ i18n "bookResults" }}"></p>
 </form>
 <p class="empty-results" data-empty-results hidden>{{ i18n "noBooks" }}</p>
-<div class="ledger" id="book-ledger">
+{{ $covers := .covers }}
+<div class="ledger{{ if $covers }} ledger-covers{{ end }}" id="book-ledger">
 {{ range $groups }}
   <section class="ledger-group" aria-labelledby="year-{{ .Key }}">
   <h2 class="ledger-year" id="year-{{ .Key }}" tabindex="-1"><a href="#year-{{ .Key }}">{{ .Key }}</a></h2>
   <ul class="ledger-rows">
   {{ range .Pages }}
     <li class="ledger-row" data-search="{{ .Title }} {{ delimit (.Params.tags | default slice) " " }}">
+      {{ if $covers }}
+      {{/* 바로 옆 제목 링크와 같은 곳을 가리키므로 탭 순서와 보조 기술에서는 뺀다 */}}
+      <a class="ledger-cover" href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
+        {{- with partial "cover-src.html" . }}<img src="{{ . }}" alt="" loading="lazy" decoding="async">{{ end -}}
+      </a>
+      {{ end }}
       <time class="ledger-date" datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format $dateFormat }}</time>
       <a class="ledger-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
       {{ with .GetTerms "tags" }}

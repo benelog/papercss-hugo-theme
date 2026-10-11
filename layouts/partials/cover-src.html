@@ -1,0 +1,8 @@
+{{/* book-content.html 과 같은 기준으로, 본문 맨 앞의 단독 이미지만 표지로 보고 그 주소를 돌려준다. */}}
+{{- $src := "" -}}
+{{- with findRE `^\s*<p>\s*<img\b[^>]*>\s*</p>` .Content 1 -}}
+  {{- with findRESubmatch `\bsrc="([^"]+)"` (index . 0) 1 -}}
+    {{- $src = index (index . 0) 1 | htmlUnescape -}}
+  {{- end -}}
+{{- end -}}
+{{- return $src -}}

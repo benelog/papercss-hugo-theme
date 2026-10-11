@@ -1,5 +1,7 @@
 {{ define "main" }}
 {{ $title := .Title }}
-{{ if and (eq .Kind "term") (eq .Data.Plural "tags") }}{{ $title = printf "#%s" (partial "tag-label.html" .Data.Term) }}{{ end }}
-{{ partial "ledger.html" (dict "title" $title "content" .Content "pages" .Pages) }}
+{{ $isTag := and (eq .Kind "term") (eq .Data.Plural "tags") }}
+{{ if $isTag }}{{ $title = printf "#%s" (partial "tag-label.html" .Data.Term) }}{{ end }}
+{{/* 태그 목록은 권수가 적어 표지를 함께 보여 준다 */}}
+{{ partial "ledger.html" (dict "title" $title "content" .Content "pages" .Pages "covers" $isTag) }}
 {{ end }}
